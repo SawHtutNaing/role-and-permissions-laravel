@@ -29,15 +29,19 @@
                     </x-nav-link>
 
                     
-
+    @if(auth()->user()->hasPermissionTo('user_view'))
+                    
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('Users') }}
                     </x-nav-link>
+@endif 
+@if(auth()->user()->hasPermissionTo('blog_view'))
 
                     
                     <x-nav-link :href="route('blogs.index')" :active="request()->routeIs('blogs.index')">
                         {{ __('Blogs') }}
                     </x-nav-link>
+                    @endif
 
                 </div>
             </div>

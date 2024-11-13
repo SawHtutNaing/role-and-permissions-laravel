@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Models\Feature;
 use App\Models\Permission;
 use App\Models\Role;
 use GuzzleHttp\Psr7\Request;
@@ -53,9 +54,11 @@ class RoleController extends Controller
     {
         
         $permissions = Permission::all();
+
+        $features = Feature::with('permissions')->get();
         $rolePermissions = $role->permissions->pluck('id')->toArray(); // Get just the IDs of the permissions
 
-     return view('roles.edit', compact('role' , 'permissions' , 'rolePermissions'));
+     return view('roles.edit', compact('role' , 'permissions' ,  'features' ,   'rolePermissions'));
     }
 
     /**

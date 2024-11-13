@@ -17,19 +17,27 @@
                 <input type="text" name="name" id="role-name" value="{{ old('name', $role->name) }}" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
             </div>
         
-            <!-- Permissions -->
+            
             <h2 class="text-xl font-semibold mb-3">Assign Permissions</h2>
             <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach ($permissions as $permission)
-                    <label class="block">
+                
+                @foreach ($features as $feature)
+               
+                    <div>
+                        <h1>{{$feature->name}}</h1>
+                @foreach ($feature->permissions as $permission)
+                    <label class="block mt-8">
                         <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" 
                             {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}>
                         {{ $permission->name }}
                     </label>
                 @endforeach
             </div>
+                @endforeach
+
+            </div>
         
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Save Changes</button>
+            <button type="submit" class="bg-blue-500   text-white px-4 py-2 rounded hover:bg-blue-700">Save Changes</button>
         </form>
         
         <a href="{{ route('roles.index') }}" class="text-blue-600 hover:text-blue-800">Back to Roles List</a>
